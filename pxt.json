@@ -10,7 +10,9 @@
     },
     "files": [
         "README.md",
-        "main.ts"
+        "main.ts",
+        "_locales/zh/hxbit-jsdoc-strings.json",
+        "-locales/zh/hxbit-strings.json"
     ],
     "testFiles": [
         "test.ts"

@@ -1,165 +1,9 @@
 
 /**
- * 使用此文件来定义自定义函数和图形块。
- * 想了解更详细的信息，请前往 https://makecode.microbit.org/blocks/custom
+ * micro:bit smart car
  */
-
-/**
- * 自定义图形块
- */
-//% weight=100 color=#0fbc11 icon=""
-namespace hxbit_显示类 {
-
-    export enum enColor {
-
-        //% blockId="OFF" block="灭"
-        OFF = 0,
-        //% blockId="Red" block="红色"
-        Red,
-        //% blockId="Green" block="绿色"
-        Green,
-        //% blockId="Blue" block="蓝色"
-        Blue,
-        //% blockId="White" block="白色"
-        White,
-        //% blockId="Cyan" block="青色"
-        Cyan,
-        //% blockId="Pinkish" block="品红"
-        Pinkish,
-        //% blockId="Yellow" block="黄色"
-        Yellow,
-
-    }
-    export enum enLED1 {
-        
-        //% blockId="OFF" block="灭"
-        OFF = 0,
-        //% blockId="ON" block="亮"
-        ON =1
-    }
-
-    //% blockId=mbit_LED1 block="LED1|pin %pin|value %value"
-    //% weight=5
-    //% blockGap=8
-    //% color="#C814B8"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=1
-    export function LED1(pin: DigitalPin, value: enLED1): void {
-
-        pins.digitalWritePin(pin, value);
-
-    }
-
-    //% blockId=mbit_LED2 block="LED2|pin %pin|value %value"
-    //% weight=4
-    //% blockGap=8
-    //% color="#C814B8"
-    //% value.min=0 value.max=255
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=2
-    export function LED2(pin: AnalogPin, value: number): void {
-
-        pins.analogWritePin(pin, value * 1024 / 256);
-
-    }
-
-    //% blockId=mbit_BreathLED block="BreathLED|pin %pin"
-    //% weight=3
-    //% blockGap=8
-    //% color="#C814B8"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=3
-    export function BreathLED(pin: AnalogPin): void {
-
-        for (let i: number = 0; i < 1023; i++) {
-            pins.analogWritePin(pin, i);
-            //basic.pause(1);
-            control.waitMicros(1000);
-        }
-        basic.pause(10);
-        for (let i: number = 1023; i > 0; i--) {
-            pins.analogWritePin(pin, i);
-            //basic.pause(1);
-            control.waitMicros(1000);
-        }
-
-    }
-
-    //% blockId=mbit_RGB block="RGB|pin1 %pin1|pin2 %pin2|pin3 %pin3|value1 %value1|value2 %value2|value3 %value3"
-    //% weight=2
-    //% blockGap=8
-    //% color="#C814B8"
-    //% value1.min=0 value1.max=255 value2.min=0 value2.max=255 value3.min=0 value3.max=255
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function RGB(pin1: AnalogPin, pin2: AnalogPin, pin3: AnalogPin, value1: number, value2: number, value3: number): void {
-
-        pins.analogWritePin(pin1, value1 * 1024 / 256);
-        pins.analogWritePin(pin2, value2 * 1024 / 256);
-        pins.analogWritePin(pin3, value3 * 1024 / 256);
-
-    }
-    //% blockId=mbit_RGB2 block="RGB|pin1 %pin1|pin2 %pin2|pin3 %pin3|value %value"
-    //% weight=1
-    //% blockGap=8
-    //% color="#C814B8"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function RGB2(pin1: DigitalPin, pin2: DigitalPin, pin3: DigitalPin, value: enColor): void {
-
-        switch (value) {
-            case enColor.OFF: {
-                pins.digitalWritePin(pin1, 0);
-                pins.digitalWritePin(pin2, 0);
-                pins.digitalWritePin(pin3, 0);
-                break;
-            }
-            case enColor.Red: {
-                pins.digitalWritePin(pin1, 1);
-                pins.digitalWritePin(pin2, 0);
-                pins.digitalWritePin(pin3, 0);
-                break;
-            }
-            case enColor.Green: {
-                pins.digitalWritePin(pin1, 0);
-                pins.digitalWritePin(pin2, 1);
-                pins.digitalWritePin(pin3, 0);
-                break;
-            }
-            case enColor.Blue: {
-                pins.digitalWritePin(pin1, 0);
-                pins.digitalWritePin(pin2, 0);
-                pins.digitalWritePin(pin3, 1);
-                break;
-            }
-            case enColor.White: {
-                pins.digitalWritePin(pin1, 1);
-                pins.digitalWritePin(pin2, 1);
-                pins.digitalWritePin(pin3, 1);
-                break;
-            }
-            case enColor.Cyan: {
-                pins.digitalWritePin(pin1, 0);
-                pins.digitalWritePin(pin2, 1);
-                pins.digitalWritePin(pin3, 1);
-                break;
-            }
-            case enColor.Pinkish: {
-                pins.digitalWritePin(pin1, 1);
-                pins.digitalWritePin(pin2, 0);
-                pins.digitalWritePin(pin3, 1);
-                break;
-            }
-            case enColor.Yellow: {
-                pins.digitalWritePin(pin1, 1);
-                pins.digitalWritePin(pin2, 1);
-                pins.digitalWritePin(pin3, 0);
-                break;
-            }
-        }
-
-    }
-    
-}
-    
-
 //% color="#006400" weight=20 icon="\uf1b9"
-namespace hxbit_car {
+namespace MicroCar {
 
     const PCA9685_ADD = 0x41
     const MODE1 = 0x00
@@ -183,23 +27,23 @@ namespace hxbit_car {
     let initialized = false
     let yahStrip: neopixel.Strip;
 
-    export enum enColor {
+    export enum Color {
 
-        //% blockId="OFF" block="灭"
+        //% blockId="OFF" block="OFF"
         OFF = 0,
-        //% blockId="Red" block="红色"
+        //% blockId="Red" block="Red"
         Red,
-        //% blockId="Green" block="绿色"
+        //% blockId="Green" block="Green"
         Green,
-        //% blockId="Blue" block="蓝色"
+        //% blockId="Blue" block="Blue"
         Blue,
-        //% blockId="White" block="白色"
+        //% blockId="White" block="White"
         White,
-        //% blockId="Cyan" block="青色"
+        //% blockId="Cyan" block="Cyan"
         Cyan,
-        //% blockId="Pinkish" block="品红"
+        //% blockId="Pinkish" block="Pinkish"
         Pinkish,
-        //% blockId="Yellow" block="黄色"
+        //% blockId="Yellow" block="Yellow"
         Yellow,
 
     }
@@ -229,24 +73,24 @@ namespace hxbit_car {
     }
     export enum enPos {
 
-        //% blockId="LeftState" block="左边状态"
+        //% blockId="LeftState" block="Left State"
         LeftState = 0,
-        //% blockId="RightState" block="右边状态"
+        //% blockId="RightState" block="Right State"
         RightState = 1
     }
 
     export enum enLineState {
-        //% blockId="White" block="白线"
+        //% blockId="White" block="White"
         White = 0,
-        //% blockId="Black" block="黑线"
+        //% blockId="Black" block="Black"
         Black = 1
 
     }
     
     export enum enAvoidState {
-        //% blockId="OBSTACLE" block="有障碍物"
+        //% blockId="OBSTACLE" block="OBSTACLE"
         OBSTACLE = 0,
-        //% blockId="NOOBSTACLE" block="无障碍物"
+        //% blockId="NOOBSTACLE" block="NOOBSTACLE"
         NOOBSTACLE = 1
 
     }
@@ -259,19 +103,19 @@ namespace hxbit_car {
         S3
     }
     export enum CarState {
-        //% blockId="Car_Run" block="前行"
+        //% blockId="Car_Run" block="Ahead""
         Car_Run = 1,
-        //% blockId="Car_Back" block="后退"
+        //% blockId="Car_Back" block="Back"
         Car_Back = 2,
-        //% blockId="Car_Left" block="左转"
+        //% blockId="Car_Left" block="Tun Left"
         Car_Left = 3,
-        //% blockId="Car_Right" block="右转"
+        //% blockId="Car_Right" block="Tun Right"
         Car_Right = 4,
-        //% blockId="Car_Stop" block="停止"
+        //% blockId="Car_Stop" block="Stop"
         Car_Stop = 5,
-        //% blockId="Car_SpinLeft" block="原地左旋"
+        //% blockId="Car_SpinLeft" block="Spin Left"
         Car_SpinLeft = 6,
-        //% blockId="Car_SpinRight" block="原地右旋"
+        //% blockId="Car_SpinRight" block="Spin Right"
         Car_SpinRight = 7
     }
 
@@ -524,7 +368,7 @@ namespace hxbit_car {
     }
 
     /**
-     * *****************************************************************
+     * RGB LED
      * @param index
      */
     //% blockId=mbit_RGB_Car_Big2 block="RGB_Car_Big2|value %value"
@@ -532,52 +376,52 @@ namespace hxbit_car {
     //% blockGap=10
     //% color="#C814B8"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function RGB_Car_Big2(value: enColor): void {
+    export function RGB_Car_Big2(value: Color): void {
 
         switch (value) {
-            case enColor.OFF: {
+            case Color.OFF: {
                 setPwm(0, 0, 0);
                 setPwm(1, 0, 0);
                 setPwm(2, 0, 0);
                 break;
             }
-            case enColor.Red: {
+            case Color.Red: {
                 setPwm(0, 0, 4095);
                 setPwm(1, 0, 0);
                 setPwm(2, 0, 0);
                 break;
             }
-            case enColor.Green: {
+            case Color.Green: {
                 setPwm(0, 0, 0);
                 setPwm(1, 0, 4095);
                 setPwm(2, 0, 0);
                 break;
             }
-            case enColor.Blue: {
+            case Color.Blue: {
                 setPwm(0, 0, 0);
                 setPwm(1, 0, 0);
                 setPwm(2, 0, 4095);
                 break;
             }
-            case enColor.White: {
+            case Color.White: {
                 setPwm(0, 0, 4095);
                 setPwm(1, 0, 4095);
                 setPwm(2, 0, 4095);
                 break;
             }
-            case enColor.Cyan: {
+            case Color.Cyan: {
                 setPwm(0, 0, 0);
                 setPwm(1, 0, 4095);
                 setPwm(2, 0, 4095);
                 break;
             }
-            case enColor.Pinkish: {
+            case Color.Pinkish: {
                 setPwm(0, 0, 4095);
                 setPwm(1, 0, 0);
                 setPwm(2, 0, 4095);
                 break;
             }
-            case enColor.Yellow: {
+            case Color.Yellow: {
                 setPwm(0, 0, 4095);
                 setPwm(1, 0, 4095);
                 setPwm(2, 0, 0);
