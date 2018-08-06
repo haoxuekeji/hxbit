@@ -1,11 +1,10 @@
 {
     "name": "hxbit",
     "version": "0.0.1",
-    "description": "",
+    "description": "Extension for haoxue bit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "radio": "*",
         "neopixel": "github:microsoft/pxt-neopixel#v0.6.7"
     },
     "files": [

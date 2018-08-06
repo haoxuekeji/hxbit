@@ -1,4 +1,3 @@
-
 /**
  * micro:bit smart car
  */

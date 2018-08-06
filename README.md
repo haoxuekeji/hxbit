@@ -1,6 +1,6 @@
 # hxbit
 
-Extension for hxbit
+Extension for haoxue hxbit
 
 ## License
 
