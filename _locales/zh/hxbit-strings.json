@@ -31,6 +31,6 @@
   "MicroCar.enLineState.White|block": "白线",
   "MicroCar.enPos.LeftState|block": "左边状态",
   "MicroCar.enPos.RightState|block": "右边状态",
-  "MicroCar|block": "MicroCar",
+  "MicroCar|block": "mrc小车",
   "{id:category}MicroCar": "MicroCar"
 }
