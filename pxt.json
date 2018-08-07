@@ -5,7 +5,8 @@
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "neopixel": "github:microsoft/pxt-neopixel#v0.6.7"
+        "neopixel": "github:microsoft/pxt-neopixel#v0.6.7",
+        "ir-receiver": "github:Tinkertanker/pxt-ir-receiver"
     },
     "files": [
         "README.md",
