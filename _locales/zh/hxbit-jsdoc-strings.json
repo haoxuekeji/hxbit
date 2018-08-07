@@ -1,4 +1,6 @@
 {
   "MicroCar": "micro:bit 智能小车",
-  "MicroCar.RGB_Car_Big2": "RGB LED"
+  "MicroCar.RGB_Car_Big2": "RGB LED",
+  "IR.init": "初始化红外线接收引脚",
+  "IR.onPressEvent": "红外按下事件"
 }

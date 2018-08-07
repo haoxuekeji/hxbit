@@ -6,11 +6,11 @@ basic.forever(() => {
         MicroCar.RGB_Car_Program().setPixelColor(1, neopixel.colors(NeoPixelColors.Green))
         MicroCar.RGB_Car_Program().show()    
 })
-MicroCar.initIR()
+// MicroCar.initIR()
 
-MicroCar.onPressEvent(0x00, () => {
-        basic.showNumber(1)
-        basic.showNumber(2)
-})
+// MicroCar.onPressEvent(0x00, () => {
+//         basic.showNumber(1)
+//         basic.showNumber(2)
+// })
 
 
